@@ -1,0 +1,24 @@
+# client 
+#   src 
+# k8s 
+# server  
+
+apiVersion:  skaffold/v2alpha3 
+kind: Config  
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false # disables docker push  
+  artifacts:
+    - image: coder19/auth_ticket 
+      context: ./auth # folder for codebase 
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
+  
