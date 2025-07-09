@@ -15,6 +15,7 @@ spec:
       containers:
         - name: auth
           image: coder19/auth_ticket
+          imagePullPolicy: Never
 ---
 apiVersion: v1
 kind: Service

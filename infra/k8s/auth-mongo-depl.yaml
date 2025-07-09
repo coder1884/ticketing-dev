@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-ticketing-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-ticketing-mongo
+  template:
+    metadata:
+      labels:
+        app: auth-ticketing-mongo
+    spec:
+      containers:
+        - name: auth-ticketing-mongo
+          image: mongo
+          imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-mongo-srv 
+spec:
+  type: ClusterIP
+  selector:
+    app: auth-ticketing-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort : 27017
+
